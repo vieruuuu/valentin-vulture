@@ -51,8 +51,8 @@ public class Map {
     /// Se parcurge matricea de dale (codurile aferente) si se deseneaza harta
     /// respectiva
     for (int y = 0; y < refLink.GetGame().GetHeight() / Tile.TILE_HEIGHT; y++) {
-      for (int x = 0; x < refLink.GetGame().GetWidth() / Tile.TILE_WIDTH; x++) {
-        GetTile(x, y).Draw(g, (int) x * Tile.TILE_HEIGHT, (int) y * Tile.TILE_WIDTH);
+      for (int x = 0; x < (refLink.GetGame().GetWidth() / Tile.TILE_WIDTH); x++) {
+        GetTile(x, y).Draw(g, 256 + 128 + (int) x * Tile.TILE_HEIGHT, (int) y * Tile.TILE_WIDTH);
       }
     }
   }
@@ -91,32 +91,13 @@ public class Map {
     height = 13;
     /// Se construieste matricea de coduri de dale
     tiles = new int[width][height];
-    // Se incarca matricea cu coduri
-    for (int y = 0; y < height; y++) {
-      for (int x = 0; x < width; x++) {
-        tiles[x][y] = MiddleEastMap(y, x);
-      }
-    }
-  }
-
-  /*
-   * ! \fn private int MiddleEastMap(int x ,int y)
-   * \brief O harta incarcata static.
-   * 
-   * \param x linia pe care se afla codul dalei de interes.
-   * \param y coloana pe care se afla codul dalei de interes.
-   */
-  private int MiddleEastMap(int x, int y) {
-    /// Definire statica a matricei de coduri de dale.
-    final int map[][] = new int[30][30];
     Random rand = new Random();
 
-    for (int i = 0; i < 30; ++i) {
-      for (int j = 0; j < 30; ++j) {
-        map[i][j] = rand.nextInt(0, 5);
+    for (int i = 0; i < width; ++i) {
+      for (int j = 0; j < height; ++j) {
+        tiles[i][j] = rand.nextInt(3);
       }
     }
-
-    return map[x][y];
   }
+
 }

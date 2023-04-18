@@ -3,6 +3,7 @@ package VV.States;
 import VV.Items.Hero;
 import VV.RefLinks;
 import VV.Maps.Map;
+import VV.Menus.MainMenu;
 
 import java.awt.*;
 
@@ -12,6 +13,7 @@ import java.awt.*;
 public class PlayState extends State {
   private Hero hero; /* !< Referinta catre obiectul animat erou (controlat de utilizator). */
   private Map map; /* !< Referinta catre harta curenta. */
+  private MainMenu menu;
 
   /*
    * ! \fn public PlayState(RefLinks refLink)
@@ -30,6 +32,8 @@ public class PlayState extends State {
     refLink.SetMap(map);
     /// Construieste eroul
     hero = new Hero(refLink, 400, 400);
+
+    menu = new MainMenu(refLink);
   }
 
   /*
@@ -38,6 +42,7 @@ public class PlayState extends State {
    */
   @Override
   public void Update() {
+    menu.Update();
     map.Update();
     hero.Update();
   }
@@ -52,6 +57,7 @@ public class PlayState extends State {
   @Override
   public void Draw(Graphics g) {
     map.Draw(g);
+    menu.Draw(g);
     hero.Draw(g);
   }
 }

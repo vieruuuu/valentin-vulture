@@ -3,6 +3,7 @@ package VV;
 import VV.GameWindow.GameWindow;
 import VV.Graphics.Assets;
 import VV.Input.KeyManager;
+import VV.Input.Mouse;
 import VV.States.*;
 import VV.Tiles.Tile;
 
@@ -139,6 +140,10 @@ public class Game implements Runnable {
     aboutState = new AboutState(refLink);
     /// Seteaza starea implicita cu care va fi lansat programul in executie
     State.SetState(playState);
+
+    Mouse.canvas = wnd.GetCanvas();
+
+    Mouse.addMouseListener();
   }
 
   /*

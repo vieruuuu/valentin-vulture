@@ -54,7 +54,6 @@ public class Tile {
    * \param y Coordonata y in cadrul ferestrei unde sa fie desenata dala
    */
   public void Draw(Graphics g, int x, int y) {
-    /// Desenare dala
     g.drawImage(img, x, y, TILE_WIDTH, TILE_HEIGHT, null);
   }
 

@@ -8,7 +8,7 @@
       "type": "java",
       "name": "Launch Joculeanu",
       "request": "launch",
-      "mainClass": "Joculeanu",
+      "mainClass": "Main",
       "projectName": "joc-java_bb816043"
     }
   ]

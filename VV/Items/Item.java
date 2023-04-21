@@ -1,7 +1,5 @@
 package VV.Items;
 
-import VV.RefLinks;
-
 import java.awt.*;
 
 /*! \class Item
@@ -23,27 +21,12 @@ public abstract class Item {
                                      * imaginii sale.
                                      */
   protected Rectangle attackBounds; /* !< Dreptunghiul de coliziune aferent starii de atac. */
-  protected RefLinks refLink; /*
-                               * !< O referinte catre un obiect "shortcut", obiect ce contine o serie de
-                               * referinte utile in program.
-                               */
 
-  /*
-   * ! \fn public Item(RefLinks refLink, float x, float y, int width, int height)
-   * \brief Constructor de initializare al clasei
-   * 
-   * \param reflink Referinte "shortcut" catre alte referinte
-   * \param x Pozitia pe axa X a "tablei" de joc a imaginii entitatii.
-   * \param y Pozitia pe axa Y a "tablei" de joc a imaginii entitatii.
-   * \param width Latimea imaginii entitatii.
-   * \param height Inaltimea imaginii entitatii.
-   */
-  public Item(RefLinks refLink, float x, float y, int width, int height) {
+  public Item(float x, float y, int width, int height) {
     this.x = x; /* !< Retine coordonata pe axa X. */
     this.y = y; /* !< Retine coordonata pe axa X. */
     this.width = width; /* !< Retine latimea imaginii. */
     this.height = height; /* !< Retine inaltimea imaginii. */
-    this.refLink = refLink; /* !< Retine the "shortcut". */
 
     /// Creaza dreptunghi de coliziune pentru modul normal, aici a fost stabilit la
     /// dimensiunea imaginii dar poate fi orice alta dimensiune

@@ -1,6 +1,6 @@
 package VV.Menus;
 
-import VV.RefLinks;
+import VV.Game;
 import VV.Input.Mouse;
 
 import java.awt.*;
@@ -55,7 +55,7 @@ class Button {
   }
 
   public void Draw(Graphics g) {
-    g.setColor(onHover ? Color.CYAN : Color.WHITE);
+    g.setColor(onHover ? Color.RED : Color.WHITE);
     g.setFont(new Font("Arial", Font.ITALIC | Font.BOLD, 25));
 
     int hoverOffset = onHover ? 40 : 20;
@@ -63,20 +63,16 @@ class Button {
     // g.fillRect(x, y, (int) width, (int) height);
     // g.setColor(Color.BLACK);
     g.drawString(text, x + hoverOffset, y + 30);
-
   }
 }
 
 public class MainMenu {
-  private RefLinks refLink;
-
   private Button playBtn = new Button("keep dreaming", 0, 300, () -> playBtnAction());
   private Button memoriesBtn = new Button("memories", 0, 360, () -> memoriesBtnAction());
   private Button optionsBtn = new Button("alter this world", 0, 420, () -> optionsBtnAction());
   private Button quitBtn = new Button("give up", 0, 480, () -> quitBtnAction());
 
-  public MainMenu(RefLinks refLink) {
-    this.refLink = refLink;
+  public MainMenu() {
   }
 
   private void playBtnAction() {
@@ -105,7 +101,7 @@ public class MainMenu {
   public void Draw(Graphics g) {
     g.setColor(Color.black);
 
-    g.fillRect(0, 0, 256 + 128, refLink.GetHeight());
+    g.fillRect(0, 0, 256 + 128, Game.getInstance().GetHeight());
 
     playBtn.Draw(g);
     memoriesBtn.Draw(g);

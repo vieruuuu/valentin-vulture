@@ -18,6 +18,9 @@ public class Assets {
   public static BufferedImage wall;
   public static BufferedImage water;
   public static BufferedImage floor;
+  public static BufferedImage door;
+  public static BufferedImage bed;
+  public static BufferedImage rock;
 
   /*
    * ! \fn public static void Init()
@@ -31,6 +34,9 @@ public class Assets {
     floor = ImageLoader.LoadImage("room/floor.png");
     wall = ImageLoader.LoadImage("room/wall.png");
     water = ImageLoader.LoadImage("room/water.png");
+    door = ImageLoader.LoadImage("room/door.png");
+    bed = ImageLoader.LoadImage("room/bed.png");
+    rock = ImageLoader.LoadImage("room/rock.png");
 
     humanLeft = ImageLoader.LoadImage("player/human_left.png");
     humanRight = ImageLoader.LoadImage("player/human_right.png");

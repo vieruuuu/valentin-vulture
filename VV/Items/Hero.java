@@ -1,115 +1,105 @@
 package VV.Items;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
-import VV.RefLinks;
+import VV.Game;
 import VV.Graphics.Assets;
-import VV.Graphics.ImageLoader;
+import VV.Input.KeyManager;
+import VV.Maps.Map;
 
-/*! \class public class Hero extends Character
-    \brief Implementeaza notiunea de erou/player (caracterul controlat de jucator).
-
-    Elementele suplimentare pe care le aduce fata de clasa de baza sunt:
-        imaginea (acest atribut poate fi ridicat si in clasa de baza)
-        deplasarea
-        atacul (nu este implementat momentan)
-        dreptunghiul de coliziune
- */
 public class Hero extends Character {
   private BufferedImage image; /* !< Referinta catre imaginea curenta a eroului. */
 
   private boolean isDemon = false;
 
-  /*
-   * ! \fn public Hero(RefLinks refLink, float x, float y)
-   * \brief Constructorul de initializare al clasei Hero.
-   * 
-   * \param refLink Referinta catre obiectul shortcut (obiect ce retine o serie de
-   * referinte din program).
-   * \param x Pozitia initiala pe axa X a eroului.
-   * \param y Pozitia initiala pe axa Y a eroului.
-   */
-  public Hero(RefLinks refLink, float x, float y) {
-    /// Apel al constructorului clasei de baza
-    super(refLink, x, y, Character.DEFAULT_CREATURE_WIDTH, Character.DEFAULT_CREATURE_HEIGHT);
-    /// Seteaza imaginea de start a eroului
+  public Hero(float x, float y) {
+    super(x, y, 100, 100);
     image = Assets.humanLeft;
-    /// Stabilieste pozitia relativa si dimensiunea dreptunghiului de coliziune,
-    /// starea implicita(normala)
-    normalBounds.x = 0;
-    normalBounds.y = 13;
-    normalBounds.width = 48;
+    normalBounds.x = 100 / 4;
+    normalBounds.y = 100 / 2;
+    normalBounds.width = 50;
     normalBounds.height = 50;
 
-    /// Stabilieste pozitia relativa si dimensiunea dreptunghiului de coliziune,
-    /// starea de atac
     attackBounds.x = 10;
     attackBounds.y = 10;
     attackBounds.width = 38;
-    attackBounds.height = 38;
+    attackBounds.height = 1000;
   }
 
-  /*
-   * ! \fn public void Update()
-   * \brief Actualizeaza pozitia si imaginea eroului.
-   */
   @Override
   public void Update() {
-    /// Verifica daca a fost apasata o tasta
+    var km = KeyManager.getInstance();
+    var gi = Game.getInstance();
+    var mi = Map.getInstance();
+
     GetInput();
-    /// Actualizeaza pozitia
+
+    var nextX = x + xMove;
+    var nextY = y + yMove;
+
+    // cancel x movement
+    if (nextX < 356 || nextX > gi.GetWidth() - 70) {
+      xMove = 0;
+    }
+
+    // cancel y movement
+    if (nextY < -50 || nextY > 730) {
+      yMove = 0;
+    }
+
+    if (mi.getTile((int) nextX, (int) y).IsSolid()) {
+      xMove = 0;
+    }
+
+    if (mi.getTile((int) x, (int) nextY).IsSolid()) {
+      yMove = 0;
+    }
+
+    if (mi.getTile((int) nextX, (int) nextY).isDoor()) {
+      xMove = 0;
+      yMove = 0;
+
+      x = gi.GetWidth() / 2 + 140;
+      y = gi.GetHeight() / 2 - 80;
+
+      Map.getInstance().LoadWorld();
+    }
+
     Move();
-    /// Actualizeaza imaginea
-    if (refLink.GetKeyManager().action) {
-      isDemon = !isDemon;
 
+    if (km.left) {
       image = isDemon ? Assets.demonLeft : Assets.humanLeft;
     }
-
-    if (refLink.GetKeyManager().left) {
-      image = isDemon ? Assets.demonLeft : Assets.humanLeft;
-    }
-    if (refLink.GetKeyManager().right) {
+    if (km.right) {
       image = isDemon ? Assets.demonRight : Assets.humanRight;
     }
 
   }
 
-  /*
-   * ! \fn private void GetInput()
-   * \brief Verifica daca a fost apasata o tasta din cele stabilite pentru
-   * controlul eroului.
-   */
   private void GetInput() {
-    /// Implicit eroul nu trebuie sa se deplaseze daca nu este apasata o tasta
     xMove = 0;
     yMove = 0;
-    /// Verificare apasare tasta "sus"
-    if (refLink.GetKeyManager().up) {
+
+    var km = KeyManager.getInstance();
+
+    if (km.up) {
       yMove = -speed;
     }
-    /// Verificare apasare tasta "jos"
-    if (refLink.GetKeyManager().down) {
+
+    if (km.down) {
       yMove = speed;
     }
-    /// Verificare apasare tasta "left"
-    if (refLink.GetKeyManager().left) {
+
+    if (km.left) {
       xMove = -speed;
     }
-    /// Verificare apasare tasta "dreapta"
-    if (refLink.GetKeyManager().right) {
+
+    if (km.right) {
       xMove = speed;
     }
   }
 
-  /*
-   * ! \fn public void Draw(Graphics g)
-   * \brief Randeaza/deseneaza eroul in noua pozitie.
-   * 
-   * \brief g Contextul grafi in care trebuie efectuata desenarea eroului.
-   */
   @Override
   public void Draw(Graphics g) {
     g.drawImage(image, (int) x, (int) y, width, height, null);

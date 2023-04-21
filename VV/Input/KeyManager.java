@@ -1,9 +1,9 @@
 package VV.Input;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.KeyAdapter;
 
-public class KeyManager implements KeyListener {
+public class KeyManager extends KeyAdapter {
   public boolean up = false;
   public boolean down = false;
   public boolean left = false;
@@ -53,10 +53,5 @@ public class KeyManager implements KeyListener {
   @Override
   public void keyReleased(KeyEvent e) {
     updateKey(e, false);
-  }
-
-  @Override
-  public void keyTyped(KeyEvent e) {
-
   }
 }

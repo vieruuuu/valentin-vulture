@@ -39,17 +39,7 @@ class Button {
       onHover = mX >= x && mX <= x + width && mY >= y && mY <= y + height;
     }
 
-    if (onHover && Mouse.isButtonPressed(1)) {
-      if (clickCount == 1) {
-        clickCount = 2;
-      } else if (clickCount == 0) {
-        clickCount = 1;
-      }
-    } else {
-      clickCount = 0;
-    }
-
-    if (clickCount == 1) {
+    if (onHover && Mouse.isButtonClicked(1)) {
       action.run();
     }
   }
@@ -67,17 +57,14 @@ class Button {
 }
 
 public class MainMenu {
-  private Button playBtn = new Button("keep dreaming", 0, 300, () -> playBtnAction());
+  private Button playBtn = new Button("keep dreaming", 0, 300, () -> startedGame = true);
   private Button memoriesBtn = new Button("memories", 0, 360, () -> memoriesBtnAction());
   private Button optionsBtn = new Button("alter this world", 0, 420, () -> optionsBtnAction());
   private Button quitBtn = new Button("give up", 0, 480, () -> quitBtnAction());
 
-  public MainMenu() {
-  }
+  private Button menuBtn = new Button("close your eyes", 0, 480, () -> startedGame = false);
 
-  private void playBtnAction() {
-    System.out.println("playBtn");
-  }
+  public boolean startedGame = false;
 
   private void memoriesBtnAction() {
     System.out.println("memoriesBtn");
@@ -92,20 +79,39 @@ public class MainMenu {
   }
 
   public void Update() {
-    playBtn.Update();
-    memoriesBtn.Update();
-    optionsBtn.Update();
-    quitBtn.Update();
+    if (startedGame) {
+      menuBtn.Update();
+    } else {
+      playBtn.Update();
+      memoriesBtn.Update();
+      optionsBtn.Update();
+      quitBtn.Update();
+    }
   }
 
   public void Draw(Graphics g) {
     g.setColor(Color.black);
 
-    g.fillRect(0, 0, 256 + 128, Game.getInstance().GetHeight());
+    g.fillRect(0, 0, Game.getInstance().GetWidth(), Game.getInstance().GetHeight());
 
-    playBtn.Draw(g);
-    memoriesBtn.Draw(g);
-    optionsBtn.Draw(g);
-    quitBtn.Draw(g);
+    if (startedGame) {
+      var gi = Game.getInstance();
+
+      g.setColor(Color.WHITE);
+      g.setFont(new Font("Arial", Font.ITALIC | Font.BOLD, 25));
+
+      g.drawString("beds found: " + gi.bedCount, 20, 460);
+
+      menuBtn.Draw(g);
+    } else {
+      g.setColor(Color.white);
+      g.setFont(new Font("Arial", Font.BOLD, 40));
+      g.drawString("VALENTIN VULTURE", 20, 220 + 30);
+
+      playBtn.Draw(g);
+      memoriesBtn.Draw(g);
+      optionsBtn.Draw(g);
+      quitBtn.Draw(g);
+    }
   }
 }

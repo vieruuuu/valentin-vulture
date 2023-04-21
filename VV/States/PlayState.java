@@ -7,16 +7,11 @@ import VV.Menus.MainMenu;
 
 import java.awt.*;
 
-public class PlayState extends State {
+public class PlayState {
   private Hero hero;
-  private Map map;
   private MainMenu menu;
 
   public PlayState() {
-    super();
-
-    map = Map.getInstance();
-
     var gi = Game.getInstance();
 
     hero = new Hero(gi.GetWidth() / 2 + 140, gi.GetHeight() / 2 - 80);
@@ -24,17 +19,21 @@ public class PlayState extends State {
     menu = new MainMenu();
   }
 
-  @Override
   public void Update() {
     menu.Update();
-    map.Update();
-    hero.Update();
+
+    if (menu.startedGame) {
+      Map.getInstance().Update();
+      hero.Update();
+    }
   }
 
-  @Override
   public void Draw(Graphics g) {
-    map.Draw(g);
     menu.Draw(g);
-    hero.Draw(g);
+
+    if (menu.startedGame) {
+      Map.getInstance().Draw(g);
+      hero.Draw(g);
+    }
   }
 }

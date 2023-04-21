@@ -19,7 +19,9 @@ public class Game implements Runnable {
 
   private Graphics g;
 
-  private State playState;
+  private PlayState state;
+
+  public int bedCount = 0;
 
   private Game(String title, int width, int height) {
     wnd = new GameWindow(title, width, height);
@@ -41,9 +43,7 @@ public class Game implements Runnable {
 
     Assets.Init();
 
-    playState = new PlayState();
-
-    State.SetState(playState);
+    state = new PlayState();
 
     Mouse.canvas = wnd.GetCanvas();
 
@@ -101,9 +101,7 @@ public class Game implements Runnable {
   private void Update() {
     KeyManager.getInstance().Update();
 
-    if (State.GetState() != null) {
-      State.GetState().Update();
-    }
+    state.Update();
   }
 
   private void Draw() {
@@ -121,9 +119,7 @@ public class Game implements Runnable {
 
     g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
 
-    if (State.GetState() != null) {
-      State.GetState().Draw(g);
-    }
+    state.Draw(g);
 
     bs.show();
 

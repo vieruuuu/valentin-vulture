@@ -8,7 +8,7 @@ public class RockTile extends Tile {
   }
 
   @Override
-  public boolean IsSolid() {
+  public boolean isSolid() {
     return true;
   }
 }

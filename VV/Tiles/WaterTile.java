@@ -9,7 +9,7 @@ public class WaterTile extends Tile {
   }
 
   @Override
-  public boolean IsSolid() {
+  public boolean isSolid() {
     return true;
   }
 }

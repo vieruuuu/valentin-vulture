@@ -8,7 +8,13 @@ public class BedTile extends Tile {
   }
 
   @Override
-  public boolean IsSolid() {
+  public boolean isSolid() {
     return false;
   }
+
+  @Override
+  public boolean isBed() {
+    return true;
+  }
+
 }

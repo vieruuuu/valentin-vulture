@@ -8,7 +8,7 @@ public class DoorTile extends Tile {
   }
 
   @Override
-  public boolean IsSolid() {
+  public boolean isSolid() {
     return false;
   }
 

@@ -33,6 +33,15 @@ public class Mouse extends MouseAdapter {
     return pressedButtons.getOrDefault(button, false);
   }
 
+  public static boolean isButtonClicked(int button) {
+    var val = pressedButtons.getOrDefault(button, false);
+
+    // setez butonul sa fie fals sa nu mai ia clickuri in plus
+    pressedButtons.put(button, false);
+
+    return val;
+  }
+
   public static Point getPosition() {
     return canvas.getMousePosition();
   }

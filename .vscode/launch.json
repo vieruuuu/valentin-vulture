@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Main",
+      "projectName": "valentin-vulture_a658e3f5"
+    },
+    {
+      "type": "java",
       "name": "Launch Joculeanu",
       "request": "launch",
       "mainClass": "Main",

@@ -1,6 +1,7 @@
 package VV.GameWindow;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 /*! \class GameWindow
@@ -67,6 +68,9 @@ public class GameWindow {
     /// sa se joace in fereastra stabilitata de voi. Puteti reveni asupra
     /// urmatorului apel ulterior.
     wndFrame.setResizable(false);
+
+    wndFrame.setFocusable(true);
+
     /// Recomand ca fereastra sa apara in centrul ecranului. Pentru orice
     /// alte pozitie se va apela "wndFrame.setLocation(x, y)" etc.
     wndFrame.setLocationRelativeTo(null);
@@ -88,6 +92,9 @@ public class GameWindow {
     /// fereastra este redimensionata
     canvas.setMaximumSize(new Dimension(wndWidth, wndHeight));
     canvas.setMinimumSize(new Dimension(wndWidth, wndHeight));
+
+    canvas.setFocusable(false);
+
     /// Avand in vedere ca obiectul de tip canvas, proaspat creat, nu este automat
     /// adaugat in fereastra trebuie apelata metoda add a obiectul wndFrame
     wndFrame.add(canvas);

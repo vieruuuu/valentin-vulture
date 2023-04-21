@@ -29,6 +29,16 @@ public class Map {
 
   }
 
+  public void setTile(int x, int y, int tileId) {
+    var testX = (x - 270) / Tile.TILE_HEIGHT - 1;
+    // System.out.println(x + " " + testX);
+
+    var testY = (y + 90) / Tile.TILE_HEIGHT;
+    // System.out.println(y + " " + testY);
+
+    tiles[testX][testY] = tileId;
+  }
+
   public Tile getTile(int x, int y) {
     var testX = (x - 270) / Tile.TILE_HEIGHT - 1;
     // System.out.println(x + " " + testX);
@@ -117,7 +127,18 @@ public class Map {
 
     // generate bed
     if (rand.nextInt(3) == 0) {
-      tiles[rand.nextInt(13)][rand.nextInt(13)] = 4;
+      var x = rand.nextInt(13);
+      var y = rand.nextInt(13);
+
+      if (x == 0 || x == 12) {
+        x = 3;
+      }
+
+      if (y == 0 || y == 12) {
+        y = 3;
+      }
+
+      tiles[x][y] = 4;
     }
   }
 }

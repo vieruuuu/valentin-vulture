@@ -49,7 +49,11 @@ public class Tile {
 
   }
 
-  public boolean IsSolid() {
+  public boolean isSolid() {
+    return false;
+  }
+
+  public boolean isBed() {
     return false;
   }
 

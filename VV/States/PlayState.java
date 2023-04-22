@@ -8,7 +8,7 @@ import VV.Menus.MainMenu;
 import java.awt.*;
 
 public class PlayState {
-  private Hero hero;
+  public Hero hero;
   private MainMenu menu;
 
   public PlayState() {

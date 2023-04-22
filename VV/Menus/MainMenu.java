@@ -2,6 +2,8 @@ package VV.Menus;
 
 import VV.Game;
 import VV.Input.Mouse;
+import VV.Maps.Floor;
+import VV.Maps.Map;
 
 import java.awt.*;
 
@@ -56,6 +58,12 @@ class Button {
   }
 }
 
+/**
+ * The MainMenu class contains buttons for starting a game, accessing memories
+ * and options, and
+ * quitting the game, as well as a button for returning to the main menu during
+ * gameplay.
+ */
 public class MainMenu {
   private Button playBtn = new Button("keep dreaming", 0, 300, () -> startedGame = true);
   private Button memoriesBtn = new Button("memories", 0, 360, () -> memoriesBtnAction());
@@ -71,7 +79,7 @@ public class MainMenu {
   }
 
   private void optionsBtnAction() {
-    System.out.println("optionsBtn");
+    Map.getInstance().floor = new Floor();
   }
 
   private void quitBtnAction() {

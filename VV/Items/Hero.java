@@ -33,6 +33,8 @@ public class Hero extends Character {
     var gi = Game.getInstance();
     var mi = Map.getInstance();
 
+    isDemon = (gi.bedCount % 2 == 1);
+
     GetInput();
 
     var nextX = x + xMove;
@@ -48,26 +50,23 @@ public class Hero extends Character {
       yMove = 0;
     }
 
-    if (mi.getTile((int) nextX, (int) y).isSolid()) {
+    if (mi.floor.room.getTile((int) nextX, (int) y).isSolid()) {
       xMove = 0;
     }
 
-    if (mi.getTile((int) x, (int) nextY).isSolid()) {
+    if (mi.floor.room.getTile((int) x, (int) nextY).isSolid()) {
       yMove = 0;
     }
 
-    if (mi.getTile((int) nextX, (int) nextY).isDoor()) {
+    if (mi.floor.room.getTile((int) nextX, (int) nextY).isDoor()) {
       xMove = 0;
       yMove = 0;
 
-      x = gi.GetWidth() / 2 + 140;
-      y = gi.GetHeight() / 2 - 80;
-
-      mi.LoadWorld();
-    } else if (mi.getTile((int) nextX, (int) nextY).isBed()) {
+      mi.floor.room.useDoor((int) nextX, (int) nextY);
+    } else if (mi.floor.room.getTile((int) nextX, (int) nextY).isBed()) {
       gi.bedCount++;
 
-      mi.setTile((int) nextX, (int) nextY, 0);
+      mi.floor.room.setTile((int) nextX, (int) nextY, 0);
     }
 
     Move();

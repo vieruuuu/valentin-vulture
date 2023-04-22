@@ -9,6 +9,11 @@ import VV.States.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
+/**
+ * The Game class is a Java implementation of a game loop with methods for
+ * initializing, starting,
+ * stopping, updating, and drawing the game.
+ */
 public class Game implements Runnable {
   private static Game gameInstance;
 
@@ -19,7 +24,7 @@ public class Game implements Runnable {
 
   private Graphics g;
 
-  private PlayState state;
+  public PlayState state;
 
   public int bedCount = 0;
 
@@ -29,6 +34,12 @@ public class Game implements Runnable {
 
   }
 
+  /**
+   * This function returns an instance of the Game class, creating it if it
+   * doesn't already exist.
+   * 
+   * @return The method `getInstance()` returns an instance of the `Game` class.
+   */
   public static Game getInstance() {
     if (gameInstance == null) {
       gameInstance = new Game("Valentin Vulture", 832 + 256 + 128, 832);
@@ -37,6 +48,12 @@ public class Game implements Runnable {
     return gameInstance;
   }
 
+  /**
+   * The function initializes the game by building the game window, adding a key
+   * listener, initializing
+   * assets, creating a play state, setting the canvas for the mouse, and adding a
+   * mouse listener.
+   */
   private void InitGame() {
     wnd.BuildGameWindow();
     wnd.GetWndFrame().addKeyListener(KeyManager.getInstance());
@@ -50,6 +67,10 @@ public class Game implements Runnable {
     Mouse.addMouseListener();
   }
 
+  /**
+   * This function runs a game loop that updates and draws the game at a specified
+   * frame rate.
+   */
   public void run() {
     InitGame();
 
@@ -72,6 +93,9 @@ public class Game implements Runnable {
 
   }
 
+  /**
+   * This function starts a game thread if the run state is false.
+   */
   public synchronized void StartGame() {
     if (runState == false) {
       runState = true;
@@ -83,6 +107,9 @@ public class Game implements Runnable {
     }
   }
 
+  /**
+   * This Java function stops the game thread if it is currently running.
+   */
   public synchronized void StopGame() {
     if (runState == true) {
       runState = false;

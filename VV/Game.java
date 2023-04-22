@@ -125,12 +125,19 @@ public class Game implements Runnable {
     }
   }
 
+  /**
+   * This function updates the key manager and the state.
+   */
   private void Update() {
     KeyManager.getInstance().Update();
 
     state.Update();
   }
 
+  /**
+   * This function draws the current state of the game onto a canvas using a
+   * buffer strategy.
+   */
   private void Draw() {
     bs = wnd.GetCanvas().getBufferStrategy();
     if (bs == null) {
@@ -153,10 +160,24 @@ public class Game implements Runnable {
     g.dispose();
   }
 
+  /**
+   * This function returns the width of a window.
+   * 
+   * @return The method `GetWidth()` is returning an integer value which is the
+   *         width of the window
+   *         obtained from the `GetWndWidth()` method of the `wnd` object.
+   */
   public int GetWidth() {
     return wnd.GetWndWidth();
   }
 
+  /**
+   * The function returns the height of a window.
+   * 
+   * @return The method `GetHeight()` is returning an integer value which is the
+   *         height of the window
+   *         obtained from the `GetWndHeight()` method.
+   */
   public int GetHeight() {
     return wnd.GetWndHeight();
   }

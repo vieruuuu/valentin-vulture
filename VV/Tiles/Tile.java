@@ -5,6 +5,10 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
+/**
+ * The Tile class defines different types of tiles with their respective images
+ * and properties for a game.
+ */
 public class Tile {
   private static final int NO_TILES = 32;
   public static Tile[] tiles = new Tile[NO_TILES];

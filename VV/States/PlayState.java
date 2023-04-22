@@ -7,6 +7,10 @@ import VV.Menus.MainMenu;
 
 import java.awt.*;
 
+/**
+ * The PlayState class initializes a hero and a main menu, updates and draws
+ * them based on whether the game has started or not.
+ */
 public class PlayState {
   public Hero hero;
   private MainMenu menu;

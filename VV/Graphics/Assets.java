@@ -18,9 +18,26 @@ public class Assets {
   public static BufferedImage wall;
   public static BufferedImage water;
   public static BufferedImage floor;
-  public static BufferedImage door;
-  public static BufferedImage bed;
   public static BufferedImage rock;
+
+  public static BufferedImage wallWinter;
+  public static BufferedImage waterWinter;
+  public static BufferedImage floorWinter;
+  public static BufferedImage rockWinter;
+
+  public static BufferedImage wallBurning;
+  public static BufferedImage waterBurning;
+  public static BufferedImage floorBurning;
+  public static BufferedImage rockBurning;
+
+  public static BufferedImage bed;
+  public static BufferedImage bedWinter;
+  public static BufferedImage bedBurning;
+
+  public static BufferedImage door;
+  public static BufferedImage doorWinter;
+  public static BufferedImage doorBurning;
+
   public static BufferedImage black;
 
   /*
@@ -35,10 +52,27 @@ public class Assets {
     floor = ImageLoader.LoadImage("room/floor.png");
     wall = ImageLoader.LoadImage("room/wall.png");
     water = ImageLoader.LoadImage("room/water.png");
+    rock = ImageLoader.LoadImage("room/rock.png");
+
+    floorWinter = ImageLoader.LoadImage("room/floorWinter.png");
+    wallWinter = ImageLoader.LoadImage("room/wallWinter.png");
+    waterWinter = ImageLoader.LoadImage("room/waterWinter.png");
+    rockWinter = ImageLoader.LoadImage("room/rockWinter.png");
+
+    floorBurning = ImageLoader.LoadImage("room/floorBurning.png");
+    wallBurning = ImageLoader.LoadImage("room/wallBurning.png");
+    waterBurning = ImageLoader.LoadImage("room/waterBurning.png");
+    rockBurning = ImageLoader.LoadImage("room/rockBurning.png");
+
     door = ImageLoader.LoadImage("room/door.png");
     bed = ImageLoader.LoadImage("room/bed.png");
-    rock = ImageLoader.LoadImage("room/rock.png");
     black = ImageLoader.LoadImage("room/black.png");
+
+    doorWinter = ImageLoader.LoadImage("room/doorWinter.png");
+    bedWinter = ImageLoader.LoadImage("room/bedWinter.png");
+
+    doorBurning = ImageLoader.LoadImage("room/doorBurning.png");
+    bedBurning = ImageLoader.LoadImage("room/bedBurning.png");
 
     humanLeft = ImageLoader.LoadImage("player/human_left.png");
     humanRight = ImageLoader.LoadImage("player/human_right.png");

@@ -66,7 +66,7 @@ public class Hero extends Character {
     } else if (mi.floor.room.getTile((int) nextX, (int) nextY).isBed()) {
       gi.bedCount++;
 
-      mi.floor.room.setTile((int) nextX, (int) nextY, 0);
+      mi.floor.room.setTile((int) nextX, (int) nextY, 3 * mi.floor.room.theme);
     }
 
     Move();

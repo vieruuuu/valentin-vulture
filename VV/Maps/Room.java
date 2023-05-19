@@ -20,6 +20,8 @@ public class Room {
   protected Floor floorRef;
   public Point pos;
 
+  public int theme = rand.nextInt(3) + 1; // 1 sau 2 momentan
+
   public String type() {
     return "normal";
   }
@@ -73,7 +75,7 @@ public class Room {
         y = 3;
       }
 
-      tiles[x][y] = 4;
+      tiles[x][y] = 13 * theme;
     }
   }
 
@@ -81,23 +83,23 @@ public class Room {
     for (int i = 0; i < width; ++i) {
       for (int j = 0; j < height; ++j) {
         if (i == 0 || j == 0 || i == width - 1 || j == height - 1) {
-          tiles[i][j] = 1;
+          tiles[i][j] = 5 * theme;
           continue;
         }
 
         if (i == width / 2 && j == height / 2) {
-          tiles[i][j] = 0;
+          tiles[i][j] = 3 * theme;
           continue;
         }
 
         var rnd = rand.nextInt(10);
 
         if (rnd == 0) {
-          tiles[i][j] = 5;
+          tiles[i][j] = 11 * theme; // rock
         } else if (rnd == 1) {
-          tiles[i][j] = 2;
+          tiles[i][j] = 7 * theme; // water
         } else {
-          tiles[i][j] = 0;
+          tiles[i][j] = 3 * theme; // floor
         }
 
       }
@@ -117,26 +119,26 @@ public class Room {
 
     // top door
     if (floorRef.roomExists(pos.x - 1, pos.y)) {
-      tiles[dt.x][dt.y] = 3;
-      tiles[dt.x][dt.y + 1] = 0;
+      tiles[dt.x][dt.y] = 17 * theme;
+      tiles[dt.x][dt.y + 1] = 3 * theme;
     }
 
     // bottom door
     if (floorRef.roomExists(pos.x + 1, pos.y)) {
-      tiles[db.x][db.y] = 3;
-      tiles[db.x][db.y - 1] = 0;
+      tiles[db.x][db.y] = 17 * theme;
+      tiles[db.x][db.y - 1] = 3 * theme;
     }
 
     // left door
     if (floorRef.roomExists(pos.x, pos.y - 1)) {
-      tiles[dl.x][dl.y] = 3;
-      tiles[dl.x + 1][dl.y] = 0;
+      tiles[dl.x][dl.y] = 17 * theme;
+      tiles[dl.x + 1][dl.y] = 3 * theme;
     }
 
     // right door
     if (floorRef.roomExists(pos.x, pos.y + 1)) {
-      tiles[dr.x][dr.y] = 3;
-      tiles[dr.x - 1][dr.y] = 0;
+      tiles[dr.x][dr.y] = 17 * theme;
+      tiles[dr.x - 1][dr.y] = 3 * theme;
     }
   }
 

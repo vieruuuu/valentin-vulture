@@ -10,16 +10,31 @@ import java.awt.image.BufferedImage;
  * and properties for a game.
  */
 public class Tile {
-  private static final int NO_TILES = 32;
+  private static final int NO_TILES = 128;
   public static Tile[] tiles = new Tile[NO_TILES];
 
-  public static Tile floorTile = new FloorTile(0);
-  public static Tile wallTile = new WallTile(1);
-  public static Tile waterTile = new WaterTile(2);
-  public static Tile doorTile = new DoorTile(3);
-  public static Tile bedTile = new BedTile(4);
-  public static Tile rockTile = new RockTile(5);
-  public static Tile blackTile = new BlackTile(30);
+  public static Tile floorTile = new FloorTile(3);
+  public static Tile wallTile = new WallTile(5);
+  public static Tile waterTile = new WaterTile(7);
+  public static Tile rockTile = new RockTile(11);
+  public static Tile bedTile = new BedTile(13);
+  public static Tile doorTile = new DoorTile(17);
+
+  public static Tile floorWinterTile = new FloorWinterTile(3 * 2);
+  public static Tile wallWinterTile = new WallWinterTile(5 * 2);
+  public static Tile waterWinterTile = new WaterWinterTile(7 * 2);
+  public static Tile rockWinterTile = new RockWinterTile(11 * 2);
+  public static Tile bedWinterTile = new BedWinterTile(13 * 2);
+  public static Tile doorWinterTile = new DoorWinterTile(17 * 2);
+
+  public static Tile floorBurningTile = new FloorBurningTile(3 * 3);
+  public static Tile wallBurningTile = new WallBurningTile(5 * 3);
+  public static Tile waterBurningTile = new WaterBurningTile(7 * 3);
+  public static Tile rockBurningTile = new RockBurningTile(11 * 3);
+  public static Tile bedBurningTile = new BedBurningTile(13 * 3);
+  public static Tile doorBurningTile = new DoorBurningTile(17 * 3);
+
+  public static Tile blackTile = new BlackTile(113);
 
   public static final int TILE_WIDTH = 64;
   public static final int TILE_HEIGHT = 64;

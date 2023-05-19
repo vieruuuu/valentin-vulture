@@ -21,6 +21,7 @@ public class Assets {
   public static BufferedImage door;
   public static BufferedImage bed;
   public static BufferedImage rock;
+  public static BufferedImage black;
 
   /*
    * ! \fn public static void Init()
@@ -37,6 +38,7 @@ public class Assets {
     door = ImageLoader.LoadImage("room/door.png");
     bed = ImageLoader.LoadImage("room/bed.png");
     rock = ImageLoader.LoadImage("room/rock.png");
+    black = ImageLoader.LoadImage("room/black.png");
 
     humanLeft = ImageLoader.LoadImage("player/human_left.png");
     humanRight = ImageLoader.LoadImage("player/human_right.png");

@@ -19,6 +19,7 @@ public class Tile {
   public static Tile doorTile = new DoorTile(3);
   public static Tile bedTile = new BedTile(4);
   public static Tile rockTile = new RockTile(5);
+  public static Tile blackTile = new BlackTile(30);
 
   public static final int TILE_WIDTH = 64;
   public static final int TILE_HEIGHT = 64;

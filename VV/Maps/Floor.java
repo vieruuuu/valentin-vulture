@@ -41,7 +41,22 @@ public class Floor {
     for (int i = 0; i < floorSize; i++) {
       for (int j = 0; j < floorSize; j++) {
         if (roomExists(i, j)) {
-          rooms[i][j] = new Room(this, new Point(i, j));
+          var rnd = rand.nextInt(3);
+
+          switch (rnd) {
+            case 1:
+              rooms[i][j] = new TallRoom(this, new Point(i, j));
+              break;
+            case 2:
+              rooms[i][j] = new WideRoom(this, new Point(i, j));
+
+              break;
+
+            default:
+              rooms[i][j] = new Room(this, new Point(i, j));
+              break;
+          }
+
         }
 
       }

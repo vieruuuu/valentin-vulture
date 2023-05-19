@@ -10,15 +10,35 @@ import VV.Tiles.Tile;
  * The Room class generates and manages the tiles and doors of a room in a game.
  */
 public class Room {
-  private int width = 13;
-  private int height = 13;
+  protected int width = 13;
+  protected int height = 13;
 
   public int[][] tiles = new int[width][height];
 
-  private Random rand = new Random();
+  protected Random rand = new Random();
 
-  private Floor floorRef;
+  protected Floor floorRef;
   public Point pos;
+
+  public String type() {
+    return "normal";
+  }
+
+  protected Point doorTop() {
+    return new Point(width / 2, 0);
+  }
+
+  protected Point doorBottom() {
+    return new Point(width / 2, height - 1);
+  }
+
+  protected Point doorLeft() {
+    return new Point(0, height / 2);
+  }
+
+  protected Point doorRight() {
+    return new Point(width - 1, height / 2);
+  }
 
   /**
    * This is the constructor method for the Room class. It takes in a Floor object
@@ -33,6 +53,31 @@ public class Room {
     this.floorRef = floorRef;
     this.pos = pos;
 
+    generateTiles();
+    generateDoors();
+
+    // generate bed
+    generateBed();
+  }
+
+  protected void generateBed() {
+    if (rand.nextInt(3) == 0) {
+      var x = rand.nextInt(13);
+      var y = rand.nextInt(13);
+
+      if (x == 0 || x == 12) {
+        x = 3;
+      }
+
+      if (y == 0 || y == 12) {
+        y = 3;
+      }
+
+      tiles[x][y] = 4;
+    }
+  }
+
+  protected void generateTiles() {
     for (int i = 0; i < width; ++i) {
       for (int j = 0; j < height; ++j) {
         if (i == 0 || j == 0 || i == width - 1 || j == height - 1) {
@@ -58,52 +103,40 @@ public class Room {
       }
     }
 
-    generateDoors();
-
-    // generate bed
-    if (rand.nextInt(3) == 0) {
-      var x = rand.nextInt(13);
-      var y = rand.nextInt(13);
-
-      if (x == 0 || x == 12) {
-        x = 3;
-      }
-
-      if (y == 0 || y == 12) {
-        y = 3;
-      }
-
-      tiles[x][y] = 4;
-    }
   }
 
   /**
    * The function generates doors in a room based on the existence of neighboring
    * rooms.
    */
-  private void generateDoors() {
+  protected void generateDoors() {
+    var dt = doorTop();
+    var db = doorBottom();
+    var dl = doorLeft();
+    var dr = doorRight();
+
     // top door
     if (floorRef.roomExists(pos.x - 1, pos.y)) {
-      tiles[width / 2][0] = 3;
-      tiles[width / 2][1] = 0;
+      tiles[dt.x][dt.y] = 3;
+      tiles[dt.x][dt.y + 1] = 0;
     }
 
     // bottom door
     if (floorRef.roomExists(pos.x + 1, pos.y)) {
-      tiles[width / 2][height - 1] = 3;
-      tiles[width / 2][height - 2] = 0;
+      tiles[db.x][db.y] = 3;
+      tiles[db.x][db.y - 1] = 0;
     }
 
     // left door
     if (floorRef.roomExists(pos.x, pos.y - 1)) {
-      tiles[0][height / 2] = 3;
-      tiles[1][height / 2] = 0;
+      tiles[dl.x][dl.y] = 3;
+      tiles[dl.x + 1][dl.y] = 0;
     }
 
     // right door
     if (floorRef.roomExists(pos.x, pos.y + 1)) {
-      tiles[width - 1][height / 2] = 3;
-      tiles[width - 2][height / 2] = 0;
+      tiles[dr.x][dr.y] = 3;
+      tiles[dr.x - 1][dr.y] = 0;
     }
   }
 
@@ -159,6 +192,7 @@ public class Room {
   public void useDoor(int x, int y) {
     var tileX = (x - 270) / Tile.TILE_HEIGHT - 1;
     var tileY = (y + 90) / Tile.TILE_HEIGHT;
+    var p = new Point(tileX, tileY);
 
     if (tileX < 0 || tileY < 0 || tileX >= width || tileY >= height) {
       return;
@@ -167,32 +201,60 @@ public class Room {
     var hi = Game.getInstance().state.hero;
 
     // top door
-    if (tileX == width / 2 && tileY == 0) {
+    if (doorTop().equals(p)) {
       floorRef.setRoom(pos.x - 1, pos.y);
+      switch (floorRef.room.type()) {
+        case "wide":
+          hi.SetY(522);
+          break;
 
-      hi.SetY(650);
-      ;
+        default:
+          hi.SetY(650);
+          break;
+      }
     }
 
     // bottom door
-    if (tileX == width / 2 && tileY == height - 1) {
+    if (doorBottom().equals(p)) {
       floorRef.setRoom(pos.x + 1, pos.y);
 
-      hi.SetY(20);
+      switch (floorRef.room.type()) {
+        case "wide":
+          hi.SetY(148);
+          break;
+
+        default:
+          hi.SetY(20);
+          break;
+      }
     }
 
     // left door
-    if (tileX == 0 && tileY == height / 2) {
+    if (doorLeft().equals(p)) {
       floorRef.setRoom(pos.x, pos.y - 1);
 
-      hi.SetX(1064);
+      switch (floorRef.room.type()) {
+        case "tall":
+          hi.SetX(936);
+          break;
+        default:
+          hi.SetX(1064);
+          break;
+      }
     }
 
     // right door
-    if (tileX == width - 1 && tileY == height / 2) {
+    if (doorRight().equals(p)) {
       floorRef.setRoom(pos.x, pos.y + 1);
 
-      hi.SetX(450);
+      switch (floorRef.room.type()) {
+        case "tall":
+          hi.SetX(578);
+          break;
+        default:
+          hi.SetX(450);
+          break;
+      }
     }
   }
 }

@@ -92,12 +92,14 @@ public class Room {
           continue;
         }
 
-        var rnd = rand.nextInt(10);
+        var rnd = rand.nextInt(30);
 
-        if (rnd == 0) {
+        if (rnd == 0 || rnd == 1) {
           tiles[i][j] = 11 * theme; // rock
-        } else if (rnd == 1) {
+        } else if (rnd == 2) {
           tiles[i][j] = 7 * theme; // water
+        } else if (rnd == 4) {
+          tiles[i][j] = 19 * theme; // spikes
         } else {
           tiles[i][j] = 3 * theme; // floor
         }

@@ -26,7 +26,13 @@ public class Game implements Runnable {
 
   public PlayState state;
 
-  public int bedCount = 0;
+  public int deadCount = 0;
+
+  public long gameStartTime = System.nanoTime();
+
+  public long notifyStart = 0;
+  public String notifyMsg = "";
+  public boolean showNotify = false;
 
   private Game(String title, int width, int height) {
     wnd = new GameWindow(title, width, height);
@@ -65,6 +71,12 @@ public class Game implements Runnable {
     Mouse.canvas = wnd.GetCanvas();
 
     Mouse.addMouseListener();
+  }
+
+  public void notify(String msg) {
+    notifyMsg = msg;
+    notifyStart = System.nanoTime();
+    showNotify = true;
   }
 
   /**
@@ -129,9 +141,17 @@ public class Game implements Runnable {
    * This function updates the key manager and the state.
    */
   private void Update() {
+    var time = System.nanoTime();
+
     KeyManager.getInstance().Update();
 
     state.Update();
+
+    if (showNotify) {
+      if (time - notifyStart > 10 * 1000000000) {
+        showNotify = false;
+      }
+    }
   }
 
   /**
@@ -154,6 +174,12 @@ public class Game implements Runnable {
     g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
 
     state.Draw(g);
+
+    if (showNotify) {
+      g.setFont(new Font("Arial", Font.ITALIC | Font.BOLD, 25));
+      g.setColor(Color.white);
+      g.drawString(notifyMsg, 720, 200);
+    }
 
     bs.show();
 

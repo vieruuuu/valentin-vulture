@@ -13,7 +13,7 @@ import java.awt.*;
  */
 public class PlayState {
   public Hero hero;
-  private MainMenu menu;
+  public MainMenu menu;
 
   public PlayState() {
     var gi = Game.getInstance();

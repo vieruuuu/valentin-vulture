@@ -98,6 +98,7 @@ public class MainMenu {
   }
 
   public void Draw(Graphics g) {
+
     g.setColor(Color.black);
 
     g.fillRect(0, 0, Game.getInstance().GetWidth(), Game.getInstance().GetHeight());
@@ -108,7 +109,7 @@ public class MainMenu {
       g.setColor(Color.WHITE);
       g.setFont(new Font("Arial", Font.ITALIC | Font.BOLD, 25));
 
-      g.drawString("beds found: " + gi.bedCount, 20, 460);
+      g.drawString("you died " + gi.deadCount + " times", 20, 460);
 
       menuBtn.Draw(g);
     } else {

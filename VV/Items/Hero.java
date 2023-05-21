@@ -2,16 +2,23 @@ package VV.Items;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import VV.Game;
 import VV.Graphics.Assets;
 import VV.Input.KeyManager;
+import VV.Maps.Floor;
 import VV.Maps.Map;
+import VV.States.PlayState;
 
 public class Hero extends Character {
   private BufferedImage image; /* !< Referinta catre imaginea curenta a eroului. */
 
   private boolean isDemon = false;
+  public boolean isVisible = true;
+
+  public boolean isInvincible = false;
+  public long invincibleFrameStart = 0;
 
   public Hero(float x, float y) {
     super(x, y, 100, 100);
@@ -32,8 +39,59 @@ public class Hero extends Character {
     var km = KeyManager.getInstance();
     var gi = Game.getInstance();
     var mi = Map.getInstance();
+    var time = System.nanoTime();
 
-    isDemon = (gi.bedCount % 2 == 1);
+    if (life == 0) {
+      gi.deadCount++;
+
+      gi.state = new PlayState();
+
+      mi.floor = new Floor();
+
+      gi.state.menu.startedGame = true;
+
+      var rnd = new Random().nextInt(4);
+
+      if (rnd == 0) {
+        gi.notify("what happened ?");
+      } else if (rnd == 1) {
+        gi.notify("where am I ?");
+      } else if (rnd == 2) {
+        gi.notify("back from the start");
+      } else {
+        gi.notify("why????");
+      }
+    }
+
+    // daca a trecut mai mult de o seconda de cand si a luat dmg
+    if (isInvincible) {
+      var timeDif = time - invincibleFrameStart;
+
+      if (timeDif > 1000000000) {
+        isVisible = true;
+        isInvincible = false;
+      } else if (timeDif > 900000000) {
+        isVisible = false;
+      } else if (timeDif > 800000000) {
+        isVisible = true;
+      } else if (timeDif > 700000000) {
+        isVisible = false;
+      } else if (timeDif > 600000000) {
+        isVisible = true;
+      } else if (timeDif > 500000000) {
+        isVisible = false;
+      } else if (timeDif > 400000000) {
+        isVisible = true;
+      } else if (timeDif > 300000000) {
+        isVisible = false;
+      } else if (timeDif > 200000000) {
+        isVisible = true;
+      } else {
+        isVisible = false;
+      }
+    }
+
+    isDemon = life == 1;
 
     GetInput();
 
@@ -64,18 +122,58 @@ public class Hero extends Character {
 
       mi.floor.room.useDoor((int) nextX, (int) nextY);
     } else if (mi.floor.room.getTile((int) nextX, (int) nextY).isBed()) {
-      gi.bedCount++;
+      var rnd = new Random().nextInt(4);
+
+      if (rnd == 0) {
+        gi.notify("finally some rest");
+      } else if (rnd == 1) {
+        gi.notify("such comfort");
+      } else if (rnd == 2) {
+        gi.notify("I miss my bed");
+      } else {
+        gi.notify("ZzzzZzz");
+      }
+
+      life = 5;
 
       mi.floor.room.setTile((int) nextX, (int) nextY, 3 * mi.floor.room.theme);
+    } else if (!isInvincible && mi.floor.room.getTile((int) nextX, (int) nextY).isDangerous()) {
+      var rnd = new Random().nextInt(4);
+
+      if (rnd == 0) {
+        gi.notify("my feet are bleeding");
+      } else if (rnd == 1) {
+        gi.notify("I should be more careful");
+      } else if (rnd == 2) {
+        gi.notify("spiky");
+      } else {
+        gi.notify("that's sharp");
+      }
+
+      life -= 1;
+
+      System.out.println("Player took dmg " + life);
+
+      isInvincible = true;
+      invincibleFrameStart = System.nanoTime();
     }
 
     Move();
 
-    if (km.left) {
+    if (isVisible) {
       image = isDemon ? Assets.demonLeft : Assets.humanLeft;
+
+      if (km.right) {
+        image = isDemon ? Assets.demonRight : Assets.humanRight;
+      }
+    } else {
+      image = Assets.invisible;
     }
-    if (km.right) {
-      image = isDemon ? Assets.demonRight : Assets.humanRight;
+
+    if (isDemon) {
+      speed = DEFAULT_SPEED * 2;
+    } else {
+      speed = DEFAULT_SPEED;
     }
 
   }

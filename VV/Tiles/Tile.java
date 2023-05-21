@@ -88,6 +88,10 @@ public class Tile {
     return false;
   }
 
+  public boolean isWater() {
+    return false;
+  }
+
   public int GetId() {
     return id;
   }

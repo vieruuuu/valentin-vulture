@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.Random;
 
 import VV.Game;
+import VV.States.PlayState;
 import VV.Tiles.Tile;
 
 /**
@@ -202,7 +203,10 @@ public class Room {
       return;
     }
 
-    var hi = Game.getInstance().state.hero;
+    var hi = PlayState.getInstance().hero;
+    var gi = Game.getInstance();
+
+    gi.roomsVisitedCount++;
 
     // top door
     if (doorTop().equals(p)) {
@@ -260,5 +264,6 @@ public class Room {
           break;
       }
     }
+
   }
 }

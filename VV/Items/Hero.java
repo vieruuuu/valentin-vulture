@@ -34,6 +34,15 @@ public class Hero extends Character {
     attackBounds.height = 1000;
   }
 
+  public void takeDamage() {
+    life -= 1;
+
+    System.out.println("Player took dmg " + life);
+
+    isInvincible = true;
+    invincibleFrameStart = System.nanoTime();
+  }
+
   @Override
   public void Update() {
     var km = KeyManager.getInstance();
@@ -47,8 +56,6 @@ public class Hero extends Character {
       gi.state = new PlayState();
 
       mi.floor = new Floor();
-
-      gi.state.menu.startedGame = true;
 
       var rnd = new Random().nextInt(4);
 
@@ -116,12 +123,32 @@ public class Hero extends Character {
       yMove = 0;
     }
 
+    if (mi.floor.room.getTile((int) nextX, (int) nextY).isWater()) {
+      gi.shoesSoaked = true;
+
+      if (!gi.showNotify) {
+        var rnd = new Random().nextInt(4);
+
+        if (rnd == 0) {
+          gi.notify("now im wet");
+        } else if (rnd == 1) {
+          gi.notify("my shoes are soaked");
+        } else if (rnd == 2) {
+          gi.notify("splash.. not my jordans..");
+        } else {
+          gi.notify("I feel water on my socks");
+        }
+      }
+    }
+
     if (mi.floor.room.getTile((int) nextX, (int) nextY).isDoor()) {
       xMove = 0;
       yMove = 0;
 
       mi.floor.room.useDoor((int) nextX, (int) nextY);
     } else if (mi.floor.room.getTile((int) nextX, (int) nextY).isBed()) {
+      gi.bedsCount += 1;
+
       var rnd = new Random().nextInt(4);
 
       if (rnd == 0) {
@@ -150,12 +177,12 @@ public class Hero extends Character {
         gi.notify("that's sharp");
       }
 
-      life -= 1;
+      takeDamage();
 
-      System.out.println("Player took dmg " + life);
+      if (life == 0) {
+        gi.deathBySpikes = true;
+      }
 
-      isInvincible = true;
-      invincibleFrameStart = System.nanoTime();
     }
 
     Move();
@@ -170,10 +197,12 @@ public class Hero extends Character {
       image = Assets.invisible;
     }
 
+    float waterSpeed = mi.floor.room.getTile((int) x, (int) y).isWater() ? 0.5F : 1.0F;
+
     if (isDemon) {
-      speed = DEFAULT_SPEED * 2;
+      speed = DEFAULT_SPEED * 2 * waterSpeed;
     } else {
-      speed = DEFAULT_SPEED;
+      speed = DEFAULT_SPEED * waterSpeed;
     }
 
   }

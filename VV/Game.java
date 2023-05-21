@@ -24,9 +24,13 @@ public class Game implements Runnable {
 
   private Graphics g;
 
-  public PlayState state;
+  public State state;
 
+  public int bedsCount = 0;
   public int deadCount = 0;
+  public int roomsVisitedCount = 0;
+  public boolean deathBySpikes = false;
+  public boolean shoesSoaked = false;
 
   public long gameStartTime = System.nanoTime();
 
@@ -66,7 +70,7 @@ public class Game implements Runnable {
 
     Assets.Init();
 
-    state = new PlayState();
+    state = new MenuState();
 
     Mouse.canvas = wnd.GetCanvas();
 
@@ -175,10 +179,10 @@ public class Game implements Runnable {
 
     state.Draw(g);
 
-    if (showNotify) {
+    if (showNotify && state instanceof PlayState) {
       g.setFont(new Font("Arial", Font.ITALIC | Font.BOLD, 25));
-      g.setColor(Color.white);
-      g.drawString(notifyMsg, 720, 200);
+      g.setColor(Color.orange);
+      g.drawString(notifyMsg, 20, 390);
     }
 
     bs.show();

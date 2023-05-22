@@ -27,12 +27,6 @@ public class Game implements Runnable {
 
   public State state;
 
-  public int bedsCount = 0;
-  public int deadCount = 0;
-  public int roomsVisitedCount = 0;
-  public boolean deathBySpikes = false;
-  public boolean shoesSoaked = false;
-
   public long gameStartTime = System.nanoTime();
 
   public long notifyStart = 0;
@@ -66,6 +60,8 @@ public class Game implements Runnable {
    * mouse listener.
    */
   private void InitGame() {
+    Database.openDB();
+
     wnd.BuildGameWindow();
     wnd.GetWndFrame().addKeyListener(KeyManager.getInstance());
 

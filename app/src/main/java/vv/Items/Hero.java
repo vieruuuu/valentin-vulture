@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import vv.Game;
+import vv.Database.Database;
 import vv.Graphics.Assets;
 import vv.Input.KeyManager;
 import vv.Maps.Floor;
@@ -55,7 +56,7 @@ public class Hero extends Character {
     var time = System.nanoTime();
 
     if (life == 0) {
-      gi.deadCount++;
+      Database.mapInt.put("deadCount", Database.mapInt.get("deadCount") + 1);
 
       gi.state = new PlayState();
 
@@ -128,7 +129,7 @@ public class Hero extends Character {
     }
 
     if (mi.floor.room.getTile((int) nextX, (int) nextY).isWater()) {
-      gi.shoesSoaked = true;
+      Database.mapBool.put("shoesSoaked", true);
 
       if (!gi.showNotify) {
         var rnd = new Random().nextInt(4);
@@ -151,7 +152,7 @@ public class Hero extends Character {
 
       mi.floor.room.useDoor((int) nextX, (int) nextY);
     } else if (mi.floor.room.getTile((int) nextX, (int) nextY).isBed()) {
-      gi.bedsCount += 1;
+      Database.mapInt.put("bedsCount", Database.mapInt.get("bedsCount") + 1);
 
       var rnd = new Random().nextInt(4);
 
@@ -184,7 +185,7 @@ public class Hero extends Character {
       takeDamage();
 
       if (life == 0) {
-        gi.deathBySpikes = true;
+        Database.mapBool.put("deathBySpikes", true);
       }
 
     }

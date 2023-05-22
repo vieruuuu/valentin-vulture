@@ -2,6 +2,8 @@ package vv.GameWindow;
 
 import javax.swing.*;
 
+import vv.Database.Database;
+
 import java.awt.*;
 
 /*! \class GameWindow
@@ -94,6 +96,14 @@ public class GameWindow {
     canvas.setMinimumSize(new Dimension(wndWidth, wndHeight));
 
     canvas.setFocusable(false);
+
+    wndFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+      @Override
+      public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+        System.out.println("se inchide :(");
+        Database.closeDB();
+      }
+    });
 
     /// Avand in vedere ca obiectul de tip canvas, proaspat creat, nu este automat
     /// adaugat in fereastra trebuie apelata metoda add a obiectul wndFrame

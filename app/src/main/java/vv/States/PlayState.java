@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import vv.Game;
+import vv.Database.Database;
 import vv.Items.Enemy;
 import vv.Items.Hero;
 import vv.Maps.Map;
@@ -49,6 +50,8 @@ public class PlayState implements State {
   }
 
   public void Draw(Graphics g) {
+    var deadCount = Database.mapInt.get("deadCount");
+
     g.setColor(Color.black);
 
     g.fillRect(0, 0, Game.getInstance().GetWidth(), Game.getInstance().GetHeight());
@@ -58,7 +61,7 @@ public class PlayState implements State {
     g.setColor(Color.red);
     g.setFont(new Font("Arial", Font.ITALIC | Font.BOLD, 25));
 
-    g.drawString("you died " + gi.deadCount + " times", 20, 450);
+    g.drawString("you died " + deadCount + " times", 20, 450);
     g.setColor(Color.white);
 
     menuBtn.Draw(g);

@@ -1,7 +1,5 @@
 package vv;
 
-import vv.Game;
-
 /**
  * The Main class starts the game by calling the StartGame method of the Game
  * singleton instance.

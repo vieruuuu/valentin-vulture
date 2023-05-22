@@ -7,37 +7,54 @@ import org.mapdb.*;
 public class Database {
   private static DB db;
 
-  private static ConcurrentMap<String, String> map;
+  public static ConcurrentMap<String, String> mapString;
+  public static ConcurrentMap<String, Integer> mapInt;
+  public static ConcurrentMap<String, Boolean> mapBool;
 
-  private static void openDB() {
-    db = DBMaker.fileDB("text.db").make();
+  public static void openDB() {
+    db = DBMaker.fileDB("save.db").make();
 
-    map = db.hashMap("map")
+    mapString = db.hashMap("mapString")
         .keySerializer(Serializer.STRING)
         .valueSerializer(Serializer.STRING)
         .createOrOpen();
 
+    mapInt = db.hashMap("mapInt")
+        .keySerializer(Serializer.STRING)
+        .valueSerializer(Serializer.INTEGER)
+        .createOrOpen();
+
+    mapBool = db.hashMap("mapBool")
+        .keySerializer(Serializer.STRING)
+        .valueSerializer(Serializer.BOOLEAN)
+        .createOrOpen();
+
+    initData();
   }
 
-  private static void closeDB() {
+  private static void initData() {
+    if (!mapInt.containsKey("bedsCount")) {
+      mapInt.put("bedsCount", 0);
+    }
+
+    if (!mapInt.containsKey("deadCount")) {
+      mapInt.put("deadCount", 0);
+    }
+
+    if (!mapInt.containsKey("roomsVisitedCount")) {
+      mapInt.put("roomsVisitedCount", 0);
+    }
+
+    if (!mapBool.containsKey("deathBySpikes")) {
+      mapBool.put("deathBySpikes", false);
+    }
+
+    if (!mapBool.containsKey("shoesSoaked")) {
+      mapBool.put("shoesSoaked", false);
+    }
+  }
+
+  public static void closeDB() {
     db.close();
-  }
-
-  public static void put(String key, String value) {
-    openDB();
-
-    map.put(key, value);
-
-    closeDB();
-  }
-
-  public static String get(String key) {
-    openDB();
-
-    var val = map.get(key);
-
-    closeDB();
-
-    return val;
   }
 }

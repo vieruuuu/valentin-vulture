@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import vv.Game;
+import vv.Database.Database;
 import vv.Graphics.Button;
 import vv.Maps.Floor;
 import vv.Maps.Map;
@@ -31,6 +32,7 @@ public class MenuState implements State {
   }
 
   private void quitBtnAction() {
+    Database.closeDB();
     System.exit(0);
   }
 

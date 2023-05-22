@@ -3,7 +3,7 @@ package vv.Maps;
 import java.awt.Point;
 import java.util.Random;
 
-import vv.Game;
+import vv.Database.Database;
 import vv.Items.Enemy;
 import vv.Items.EnemyBomber;
 import vv.Items.EnemyFlame;
@@ -247,9 +247,8 @@ public class Room {
     }
 
     var hi = PlayState.getInstance().hero;
-    var gi = Game.getInstance();
 
-    gi.roomsVisitedCount++;
+    Database.mapInt.put("roomsVisitedCount", Database.mapInt.get("roomsVisitedCount") + 1);
 
     // top door
     if (doorTop().equals(p)) {

@@ -1,3 +1,3 @@
 ## Docs
 
-[Go to docs](https://vieruuuu.github.io/valentin-vulture/VV/package-summary.html)
+[Go to docs](https://vieruuuu.github.io/valentin-vulture/vv/package-summary.html)

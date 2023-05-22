@@ -1,4 +1,5 @@
 {
-  "cSpell.words": ["Joculeanu"],
-  "docwriter.style": "Javadoc"
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.project.referencedLibraries": ["lib/**/*.jar"],
+  "java.compile.nullAnalysis.mode": "automatic"
 }

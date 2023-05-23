@@ -107,7 +107,7 @@ loadScripts(document, 'script');</script>
 <h2>Field Summary</h2>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-vv.Items.Enemy">Fields inherited from class&nbsp;vv.Items.<a href="Enemy.html" title="class in vv.Items">Enemy</a></h3>
-<code><a href="Enemy.html#image">image</a>, <a href="Enemy.html#invincibleFrameStart">invincibleFrameStart</a>, <a href="Enemy.html#isInvincible">isInvincible</a>, <a href="Enemy.html#isVisible">isVisible</a></code></div>
+<code><a href="Enemy.html#image">image</a>, <a href="Enemy.html#isHit">isHit</a>, <a href="Enemy.html#isTargeted">isTargeted</a></code></div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-vv.Items.Character">Fields inherited from class&nbsp;vv.Items.<a href="Character.html" title="class in vv.Items">Character</a></h3>
 <code><a href="Character.html#DEFAULT_CREATURE_HEIGHT">DEFAULT_CREATURE_HEIGHT</a>, <a href="Character.html#DEFAULT_CREATURE_WIDTH">DEFAULT_CREATURE_WIDTH</a>, <a href="Character.html#DEFAULT_LIFE">DEFAULT_LIFE</a>, <a href="Character.html#DEFAULT_SPEED">DEFAULT_SPEED</a>, <a href="Character.html#life">life</a>, <a href="Character.html#speed">speed</a>, <a href="Character.html#xMove">xMove</a>, <a href="Character.html#yMove">yMove</a></code></div>
@@ -142,14 +142,17 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#Update()" class="member-name-link">Update</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#takeDamage()" class="member-name-link">takeDamage</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#Update()" class="member-name-link">Update</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-vv.Items.Enemy">Methods inherited from class&nbsp;vv.Items.<a href="Enemy.html" title="class in vv.Items">Enemy</a></h3>
-<code><a href="Enemy.html#Draw(java.awt.Graphics)">Draw</a>, <a href="Enemy.html#takeDamage()">takeDamage</a></code></div>
+<code><a href="Enemy.html#Draw(java.awt.Graphics)">Draw</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-vv.Items.Character">Methods inherited from class&nbsp;vv.Items.<a href="Character.html" title="class in vv.Items">Character</a></h3>
 <code><a href="Character.html#GetLife()">GetLife</a>, <a href="Character.html#GetSpeed()">GetSpeed</a>, <a href="Character.html#GetXMove()">GetXMove</a>, <a href="Character.html#GetYMove()">GetYMove</a>, <a href="Character.html#Move()">Move</a>, <a href="Character.html#SetLife(int)">SetLife</a>, <a href="Character.html#SetSpeed(float)">SetSpeed</a>, <a href="Character.html#SetXMove(float)">SetXMove</a>, <a href="Character.html#SetYMove(float)">SetYMove</a></code></div>
@@ -192,6 +195,16 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="Enemy.html#Update()">Update</a></code>&nbsp;in class&nbsp;<code><a href="Enemy.html" title="class in vv.Items">Enemy</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="takeDamage()">
+<h3>takeDamage</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">takeDamage</span>()</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="Enemy.html#takeDamage()">takeDamage</a></code>&nbsp;in class&nbsp;<code><a href="Enemy.html" title="class in vv.Items">Enemy</a></code></dd>
 </dl>
 </section>
 </li>

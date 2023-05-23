@@ -94,7 +94,7 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="EnemyBomber.html" title="class in vv.Items">EnemyBomber</a></code>, <code><a href="EnemyFlame.html" title="class in vv.Items">EnemyFlame</a></code>, <code><a href="EnemyShadow.html" title="class in vv.Items">EnemyShadow</a></code>, <code><a href="EnemyWraith.html" title="class in vv.Items">EnemyWraith</a></code></dd>
+<dd><code><a href="EnemyBomber.html" title="class in vv.Items">EnemyBomber</a></code>, <code><a href="EnemyFlame.html" title="class in vv.Items">EnemyFlame</a></code>, <code><a href="EnemyFlameProjectile.html" title="class in vv.Items">EnemyFlameProjectile</a></code>, <code><a href="EnemyShadow.html" title="class in vv.Items">EnemyShadow</a></code>, <code><a href="EnemyWraith.html" title="class in vv.Items">EnemyWraith</a></code></dd>
 </dl>
 <hr>
 <object type="image/svg+xml" data="Enemy.svg"  style="max-width:60%;float:right;"></object>
@@ -115,15 +115,12 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>protected <a href="https://docs.oracle.com/en/java/javase/20/docs/api/java.desktop/java/awt/image/BufferedImage.html" title="class or interface in java.awt.image" class="external-link">BufferedImage</a></code></div>
 <div class="col-second even-row-color"><code><a href="#image" class="member-name-link">image</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>long</code></div>
-<div class="col-second odd-row-color"><code><a href="#invincibleFrameStart" class="member-name-link">invincibleFrameStart</a></code></div>
+<div class="col-first odd-row-color"><code>boolean</code></div>
+<div class="col-second odd-row-color"><code><a href="#isHit" class="member-name-link">isHit</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>boolean</code></div>
-<div class="col-second even-row-color"><code><a href="#isInvincible" class="member-name-link">isInvincible</a></code></div>
+<div class="col-second even-row-color"><code><a href="#isTargeted" class="member-name-link">isTargeted</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>boolean</code></div>
-<div class="col-second odd-row-color"><code><a href="#isVisible" class="member-name-link">isVisible</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-vv.Items.Character">Fields inherited from class&nbsp;vv.Items.<a href="Character.html" title="class in vv.Items">Character</a></h3>
@@ -197,21 +194,15 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="isVisible">
-<h3>isVisible</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isVisible</span></div>
+<section class="detail" id="isHit">
+<h3>isHit</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isHit</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="isInvincible">
-<h3>isInvincible</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isInvincible</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="invincibleFrameStart">
-<h3>invincibleFrameStart</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">invincibleFrameStart</span></div>
+<section class="detail" id="isTargeted">
+<h3>isTargeted</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isTargeted</span></div>
 </section>
 </li>
 </ul>

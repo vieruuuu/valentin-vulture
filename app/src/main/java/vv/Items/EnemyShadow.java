@@ -17,15 +17,21 @@ public class EnemyShadow extends Enemy {
   @Override
   public void Update() {
     var hi = PlayState.getInstance().hero;
+    var rndX = new Random().nextInt(3) + 2;
+    var rndY = new Random().nextInt(3) + 2;
 
-    if (Math.abs(x - hi.x) > 30 || Math.abs(y - hi.y) > 30) {
-      var rndX = new Random().nextInt(3) + 2;
-      var rndY = new Random().nextInt(3) + 2;
+    xMove = (x > hi.x ? -1 : 1) * rndX;
+    yMove = (y > hi.y ? -1 : 1) * rndY;
 
-      xMove = (x > hi.x ? -1 : 1) * rndX;
-      yMove = (y > hi.y ? -1 : 1) * rndY;
+    Move();
 
-      Move();
-    }
+    hi.shadowDebuff = Math.abs(x - hi.x) <= 200 && Math.abs(y - hi.y) <= 200;
+  }
+
+  @Override
+  public void takeDamage() {
+    PlayState.getInstance().hero.shadowDebuff = false;
+
+    super.takeDamage();
   }
 }

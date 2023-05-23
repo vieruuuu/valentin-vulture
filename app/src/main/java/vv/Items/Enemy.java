@@ -2,13 +2,7 @@ package vv.Items;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
-
-import vv.Game;
 import vv.Graphics.Assets;
-import vv.Input.KeyManager;
-import vv.Maps.Floor;
-import vv.Maps.Map;
 import vv.States.PlayState;
 
 public class Enemy extends Character {

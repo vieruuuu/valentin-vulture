@@ -23,6 +23,8 @@ public class Hero extends Character {
 
   private boolean holdingAction = false;
 
+  public boolean shadowDebuff = false;
+
   public Hero(float x, float y) {
     super(x, y, 100, 100);
     image = Assets.humanLeft;
@@ -205,7 +207,7 @@ public class Hero extends Character {
       image = Assets.invisible;
     }
 
-    float waterSpeed = mi.floor.room.getTile((int) x, (int) y).isWater() ? 0.5F : 1.0F;
+    float waterSpeed = mi.floor.room.getTile((int) x, (int) y).isWater() || shadowDebuff ? 0.5F : 1.0F;
 
     if (isDemon) {
       speed = DEFAULT_SPEED * 2 * waterSpeed;

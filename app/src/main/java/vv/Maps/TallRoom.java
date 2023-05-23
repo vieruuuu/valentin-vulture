@@ -1,10 +1,10 @@
 package vv.Maps;
 
 import java.awt.Point;
-import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import vv.Items.Enemy;
+import vv.Items.EnemyCreator;
 
 public class TallRoom extends Room {
   public String type() {
@@ -37,7 +37,7 @@ public class TallRoom extends Room {
         posY = rand.nextInt(650 - 80) + 80;
       } while (getTileUnsafe(posX, posY) == null);
 
-      enemies.add(randomEnemy(posX, posY));
+      enemies.add(EnemyCreator.CreateRandomEnemy(posX, posY, theme));
     }
 
     isCleared = enemies.size() <= 0;

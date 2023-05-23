@@ -1,17 +1,12 @@
 package vv.Maps;
 
 import java.awt.Point;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import vv.Database.Database;
 import vv.Items.Enemy;
-import vv.Items.EnemyBomber;
-import vv.Items.EnemyFlame;
-import vv.Items.EnemyShadow;
-import vv.Items.EnemyWraith;
+import vv.Items.EnemyCreator;
 import vv.States.PlayState;
 import vv.Tiles.Tile;
 
@@ -78,31 +73,6 @@ public class Room {
     generateBed();
   }
 
-  protected Enemy randomEnemy(int x, int y) {
-    var rnd = rand.nextInt(7);
-
-    switch (rnd) {
-      case 1:
-        if (theme == 3) {
-          return new EnemyFlame(x, y);
-        }
-
-        return new EnemyShadow(x, y);
-      case 2:
-      case 3:
-        if (theme == 2) {
-          return new EnemyWraith(x, y);
-        }
-
-        return new EnemyShadow(x, y);
-      case 4:
-        return new EnemyBomber(x, y);
-
-      default:
-        return new EnemyShadow(x, y);
-    }
-  }
-
   protected void generateEnemies() {
     enemies = new ConcurrentLinkedQueue<Enemy>();
 
@@ -117,7 +87,7 @@ public class Room {
         posY = rand.nextInt(650 - 80) + 80;
       } while (getTileUnsafe(posX, posY) == null);
 
-      enemies.add(randomEnemy(posX, posY));
+      enemies.add(EnemyCreator.CreateRandomEnemy(posX, posY, theme));
     }
 
     isCleared = enemies.size() <= 0;

@@ -36,7 +36,9 @@ public class Map {
 
   public void Update() {
     for (Enemy enemy : floor.room.enemies) {
-      enemy.Update();
+      if (enemy.GetLife() > 0) {
+        enemy.Update();
+      }
     }
 
   }
@@ -54,7 +56,9 @@ public class Map {
     }
 
     for (Enemy enemy : floor.room.enemies) {
-      enemy.Draw(g);
+      if (enemy.GetLife() > 0) {
+        enemy.Draw(g);
+      }
     }
   }
 }

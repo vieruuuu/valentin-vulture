@@ -1,7 +1,10 @@
 package vv.Maps;
 
 import java.awt.Point;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import vv.Database.Database;
 import vv.Items.Enemy;
@@ -26,9 +29,11 @@ public class Room {
   protected Floor floorRef;
   public Point pos;
 
-  public int theme = rand.nextInt(3) + 1; // 1 sau 2 momentan
+  public int theme = rand.nextInt(3) + 1; // 1, 2 sau 3 momentan
 
-  public Enemy[] enemies = new Enemy[5];
+  public ConcurrentLinkedQueue<Enemy> enemies;
+
+  public boolean isCleared = false;
 
   public String type() {
     return "normal";
@@ -64,23 +69,33 @@ public class Room {
     this.pos = pos;
 
     generateTiles();
+
+    generateEnemies();
+
     generateDoors();
 
     // generate bed
     generateBed();
-
-    generateEnemies();
   }
 
   protected Enemy randomEnemy(int x, int y) {
-    var rnd = rand.nextInt(5);
+    var rnd = rand.nextInt(7);
 
     switch (rnd) {
       case 1:
-        return new EnemyFlame(x, y);
+        if (theme == 3) {
+          return new EnemyFlame(x, y);
+        }
+
+        return new EnemyShadow(x, y);
       case 2:
-        return new EnemyWraith(x, y);
       case 3:
+        if (theme == 2) {
+          return new EnemyWraith(x, y);
+        }
+
+        return new EnemyShadow(x, y);
+      case 4:
         return new EnemyBomber(x, y);
 
       default:
@@ -89,7 +104,11 @@ public class Room {
   }
 
   protected void generateEnemies() {
-    for (int i = 0; i < enemies.length; i++) {
+    enemies = new ConcurrentLinkedQueue<Enemy>();
+
+    var enemiesSize = rand.nextInt(10);
+
+    for (int i = 0; i < enemiesSize; i++) {
       var posX = 0;
       var posY = 0;
 
@@ -98,8 +117,16 @@ public class Room {
         posY = rand.nextInt(650 - 80) + 80;
       } while (getTileUnsafe(posX, posY) == null);
 
-      enemies[i] = randomEnemy(posX, posY);
+      enemies.add(randomEnemy(posX, posY));
     }
+
+    isCleared = enemies.size() <= 0;
+  }
+
+  public void clearRoom() {
+    isCleared = true;
+
+    generateDoors();
   }
 
   protected void generateBed() {
@@ -159,28 +186,34 @@ public class Room {
     var dl = doorLeft();
     var dr = doorRight();
 
+    var doorId = 17 * theme;
+    var floorId = 3 * theme;
+    var wallId = 5 * theme;
+
+    var dynamicDoorId = isCleared ? doorId : wallId;
+
     // top door
     if (floorRef.roomExists(pos.x - 1, pos.y)) {
-      tiles[dt.x][dt.y] = 17 * theme;
-      tiles[dt.x][dt.y + 1] = 3 * theme;
+      tiles[dt.x][dt.y] = dynamicDoorId;
+      tiles[dt.x][dt.y + 1] = floorId;
     }
 
     // bottom door
     if (floorRef.roomExists(pos.x + 1, pos.y)) {
-      tiles[db.x][db.y] = 17 * theme;
-      tiles[db.x][db.y - 1] = 3 * theme;
+      tiles[db.x][db.y] = dynamicDoorId;
+      tiles[db.x][db.y - 1] = floorId;
     }
 
     // left door
     if (floorRef.roomExists(pos.x, pos.y - 1)) {
-      tiles[dl.x][dl.y] = 17 * theme;
-      tiles[dl.x + 1][dl.y] = 3 * theme;
+      tiles[dl.x][dl.y] = dynamicDoorId;
+      tiles[dl.x + 1][dl.y] = floorId;
     }
 
     // right door
     if (floorRef.roomExists(pos.x, pos.y + 1)) {
-      tiles[dr.x][dr.y] = 17 * theme;
-      tiles[dr.x - 1][dr.y] = 3 * theme;
+      tiles[dr.x][dr.y] = dynamicDoorId;
+      tiles[dr.x - 1][dr.y] = floorId;
     }
   }
 

@@ -15,11 +15,13 @@ import vv.States.PlayState;
 public class Hero extends Character {
   private BufferedImage image; /* !< Referinta catre imaginea curenta a eroului. */
 
-  private boolean isDemon = false;
+  public boolean isDemon = false;
   public boolean isVisible = true;
 
   public boolean isInvincible = false;
   public long invincibleFrameStart = 0;
+
+  private boolean holdingAction = false;
 
   public Hero(float x, float y) {
     super(x, y, 100, 100);
@@ -106,6 +108,7 @@ public class Hero extends Character {
     isDemon = life == 1;
 
     GetInput();
+    damageEnemy();
 
     var nextX = x + xMove;
     var nextY = y + yMove;
@@ -210,6 +213,51 @@ public class Hero extends Character {
       speed = DEFAULT_SPEED * waterSpeed;
     }
 
+  }
+
+  private void damageEnemy() {
+    var km = KeyManager.getInstance();
+    var mi = Map.getInstance();
+    var enemies = mi.floor.room.enemies;
+
+    if (enemies.size() < 1) {
+      return;
+    }
+
+    double minDistance = 999999999;
+    Enemy minEnemy = null;
+
+    for (Enemy enemy : enemies) {
+      if (enemy.life <= 0) {
+        continue;
+      }
+
+      enemy.isTargeted = false;
+
+      var distance = Point.distance(x, y, enemy.x, enemy.y);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        minEnemy = enemy;
+      }
+    }
+
+    if (minEnemy == null) {
+      // all enemies dead
+      mi.floor.room.clearRoom();
+
+      return;
+    }
+
+    minEnemy.isTargeted = true;
+
+    if (km.action) {
+      if (!holdingAction) {
+        minEnemy.takeDamage();
+      }
+    }
+
+    holdingAction = km.action;
   }
 
   private void GetInput() {

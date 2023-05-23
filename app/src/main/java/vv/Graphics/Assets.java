@@ -11,6 +11,7 @@ public class Assets {
   /// Referinte catre elementele grafice (dale) utilizate in joc.
   public static BufferedImage bomber;
   public static BufferedImage flame;
+  public static BufferedImage flameProjectile;
   public static BufferedImage shadow;
   public static BufferedImage wraith;
 
@@ -18,6 +19,7 @@ public class Assets {
   public static BufferedImage humanRight;
 
   public static BufferedImage invisible;
+  public static BufferedImage crosshair;
 
   public static BufferedImage demonLeft;
   public static BufferedImage demonRight;
@@ -97,7 +99,10 @@ public class Assets {
 
     bomber = ImageLoader.LoadImage("enemies/bomber.png");
     flame = ImageLoader.LoadImage("enemies/flame.png");
+    flameProjectile = ImageLoader.LoadImage("enemies/flameProjectile.png");
     shadow = ImageLoader.LoadImage("enemies/shadow.png");
     wraith = ImageLoader.LoadImage("enemies/wraith.png");
+
+    crosshair = ImageLoader.LoadImage("enemies/crosshair.png");
   }
 }

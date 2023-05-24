@@ -3,6 +3,12 @@ package vv.Graphics;
 import vv.Input.Mouse;
 import java.awt.*;
 
+class ButtonError extends RuntimeException {
+  ButtonError() {
+    super("PUNE TEXT PT BUTON!!");
+  }
+}
+
 public class Button {
   int x, y;
 
@@ -19,6 +25,10 @@ public class Button {
   Runnable action;
 
   public Button(String text, int x, int y, Runnable action) {
+    if (text.length() < 1) {
+      throw new ButtonError();
+    }
+
     this.text = text;
 
     this.x = x;
